@@ -1,10 +1,13 @@
 # redux-fire-auth
 Helper to keep the Redux State in sync with the Firebase Auth State.
 
-### Why?
-When you start playing with Firebase auth, you will soon realize that when the page refreshes, you loose authentication state until the sdk kicks back in.
+[![Build Status](https://travis-ci.org/flasd/react-classlist-helper.svg?branch=master)](https://travis-ci.org/flasd/redux-fire-auth) [![Coverage Status](https://coveralls.io/repos/github/flasd/redux-fire-auth/badge.svg?branch=master)](https://coveralls.io/github/flasd/redux-fire-auth?branch=master) [![npm version](https://badge.fury.io/js/redux-fire-auth.svg)](https://www.npmjs.com/package/redux-fire-auth) [![npm](https://img.shields.io/badge/Licence-MIT-blue.svg)](https://github.com/flasd/redux-fire-auth/blob/master/LICENSE) [![code style](https://img.shields.io/badge/Code%20Style-Airbnb-orange.svg)](https://www.npmjs.com/package/eslint-config-airbnb)
 
-Wouldn't it be nice if you could tell if the Firebase SDK have finished initializing and if there's a login user? Well :wink:
+
+### Why?
+When you start playing with Firebase auth, you will soon realize that when the page refreshes, you loose authentication state until the SDK kicks back in.
+
+Wouldn't it be nice if you could tell if the Firebase SDK have finished initializing and if there's a logged in user? Well :wink:
 
 
 ### Setup
@@ -36,7 +39,7 @@ const store = createStore(
 
 init(store, auth() /*, state key to bind the reducer to */);
 ```
-The init function binds Firebase's `onAuthStateChanged` with action creators. Whenever there's a authStateChanged event, the redux state will sync automatically.
+The `init` function binds Firebase's `onAuthStateChanged` with action creators. Whenever there's a authStateChanged event, the redux state will sync automatically.
 
 ### Usage
 
@@ -51,7 +54,7 @@ False while the Firebase SDK is initializing, then if the SDK recovers the sessi
 null while the Firebase SDK is initializing, then if the SDK recovers the session it's the User.toJSON() object, without the User methods provided by firebase, else it stays null.
 
 ### Example
-I'm assuming you know how to work with React and React-Redux for this example
+I'm assuming you know how to work with React and React-Redux for this example :grin:
 ```javascript
 import React from 'react';
 import { connect } from 'react-redux';
@@ -82,4 +85,4 @@ export default connect(mapStateToProps)(App);
 ```
 
 ### Licence
-MIT all the way. Let's create awesome stuff, yo :rocket:
+MIT all the way. Let's create awesome stuff! :rocket:
