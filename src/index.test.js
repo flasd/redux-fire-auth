@@ -40,10 +40,10 @@ describe('ReduxFireAuth module', () => {
         });
 
         it('should respond correctly to auth state changes', () => {
-            expect(doneLoading(true)).to.have.property('hasAuth', true);
+            expect(doneLoading({ toJSON: () => ({ name: 'Sup' }) })).to.have.property('hasAuth', true);
             expect(doneLoading(null)).to.have.property('hasAuth', false);
 
-            expect(authStateChanged(true)).to.have.property('hasAuth', true);
+            expect(authStateChanged({ toJSON: () => ({ name: 'Sup' }) })).to.have.property('hasAuth', true);
             expect(authStateChanged(null)).to.have.property('hasAuth', false);
         });
     });
@@ -74,7 +74,7 @@ describe('ReduxFireAuth module', () => {
             const output1 = reduxFireAuthReducer(undefined, doneLoadingAction);
             expect(output1).to.deep.equal(expectedState1);
 
-            const authStateChangedAction = authStateChanged({ name: 'Sup' });
+            const authStateChangedAction = authStateChanged({ toJSON: () => ({ name: 'Sup' }) });
             const expectedState2 = { isLoading: true, hasAuth: true, user: { name: 'Sup' } };
             const output2 = reduxFireAuthReducer(undefined, authStateChangedAction);
             expect(output2).to.deep.equal(expectedState2);
