@@ -1,0 +1,37 @@
+{
+  "name": "redux-fire-auth",
+  "version": "0.0.1-alpha.1",
+  "description": "Helper to keep the redux state in sync with the firebase auth session.",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint src/**/*.js",
+    "test": "cross-env NODE_ENV=test nyc -x src/**/*.test.js mocha src/**/*.test.js --require babel-core/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:flasd/redux-fire-auth.git"
+  },
+  "keywords": [
+    "redux",
+    "firebase",
+    "session",
+    "auth"
+  ],
+  "author": "Marcel de Oliveira Coelho",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flasd/redux-fire-auth/issues"
+  },
+  "homepage": "https://github.com/flasd/redux-fire-auth#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "cross-env": "^5.1.1",
+    "eslint": "^4.13.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0"
+  }
+}
