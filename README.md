@@ -14,7 +14,7 @@ Wouldn't it be nice if you could tell if the Firebase SDK have finished initiali
 
 First, obviously,
 ```
-$ npm install redux-fire-auth --save
+$ npm install redux-fire-auth firebase redux --save
 ```
 
 Then, you'll need 2 things:
@@ -37,7 +37,7 @@ const authInstance = firebase.auth();
 
 init(store, authInstance);
 ```
-The `init` function binds Firebase's `onAuthStateChanged` with action creators. Whenever there's a authStateChanged event, the redux state will sync automatically.
+The `init` function binds Firebase's `onAuthStateChanged` with action creators. Whenever there's an authStateChanged event, the redux state will sync automatically.
 
 **Note:** If you'd want to use something other than `fireAuth` to bind the reducer to, you need to pass the key you are using to `init(store, authInstance, key)` as the third argument.
 
