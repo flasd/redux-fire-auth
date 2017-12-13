@@ -31,7 +31,7 @@
         return {
             type: DONE_LOADING,
             hasAuth: !!user,
-            user: user
+            user: user && user.toJSON()
         };
     }
 
@@ -43,7 +43,7 @@
         return {
             type: AUTH_STATE_CHANGED,
             hasAuth: !!user,
-            user: user
+            user: user && user.toJSON()
         };
     }
 
