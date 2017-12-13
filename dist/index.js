@@ -1,6 +1,6 @@
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['exports'], factory);
+        define('reduxFireAuth', ['exports'], factory);
     } else if (typeof exports !== "undefined") {
         factory(exports);
     } else {
@@ -8,7 +8,7 @@
             exports: {}
         };
         factory(mod.exports);
-        global.index = mod.exports;
+        global.reduxFireAuth = mod.exports;
     }
 })(this, function (exports) {
     'use strict';
