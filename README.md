@@ -20,7 +20,7 @@ $ npm install redux-fire-auth --save
 Then, you'll need 2 things:
 
 ```javascript
-import { auth } from 'firebase';
+import firebase from 'firebase';
 import { createStore, combineReducers } from 'redux';
 import { reduxFireAuthReducer, init } from 'redux-fire-auth';
 
@@ -29,17 +29,17 @@ import * as yourReducers from './your-reducers.js';
 const store = createStore(
 	combineReducers({
     	'fireAuth': reduxFireAuthReducer,
-        /* 	If you want to use something other that 'fireAuth'
-        	you have to pass the key you're using as the third
-            argument when calling the init function.
-        */
         ...yourReducers,
     }),
 );
 
-init(store, auth() /*, state key to bind the reducer to */);
+const authInstance = firebase.auth();
+
+init(store, authInstance);
 ```
 The `init` function binds Firebase's `onAuthStateChanged` with action creators. Whenever there's a authStateChanged event, the redux state will sync automatically.
+
+**Note:** If you'd want to use something other than `fireAuth` to bind the reducer to, you need to pass the key you are using to `init(store, authInstance, key)` as the third argument.
 
 ### Usage
 
@@ -50,7 +50,7 @@ True while the Firebase SDK is initializing, then always false.
 ##### hasAuth: bool
 False while the Firebase SDK is initializing, then if the SDK recovers the session it's true, else it stays false.
 
-#### user: Firebase.User | null
+##### user: Firebase.User | null
 null while the Firebase SDK is initializing, then if the SDK recovers the session it's the User.toJSON() object, without the User methods provided by firebase, else it stays null.
 
 ### Example
