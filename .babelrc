@@ -1,9 +1,28 @@
 {
-    "presets": [
-        ["env", {
-            "targets": {
-                "node": "current"
-            }
-        }]
-    ]
+    "env": {
+        "test": {
+            "presets": [
+                [
+                    "env",
+                    {
+                        "targets": {
+                            "node": "current"
+                        }
+                    }
+                ]
+            ]
+        },
+        "production": {
+            "presets": [
+                ["env", {
+                    "targets": {
+                        "browsers": ["> 2%", "safari >= 7"]
+                    }
+                }]
+            ],
+            "plugins": [
+                "transform-es2015-modules-umd"
+            ]
+        }
+    }
 }
