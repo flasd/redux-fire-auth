@@ -1,6 +1,6 @@
 {
   "name": "redux-fire-auth",
-  "version": "0.0.1-beta.2",
+  "version": "0.0.1-beta.3",
   "description": "Helper to keep the redux state in sync with the firebase auth session.",
   "main": "dist/index.js",
   "scripts": {
