@@ -9,7 +9,7 @@ export function doneLoading(user) {
     return {
         type: DONE_LOADING,
         hasAuth: !!user,
-        user,
+        user: user && user.toJSON(),
     };
 }
 
@@ -21,7 +21,7 @@ export function authStateChanged(user) {
     return {
         type: AUTH_STATE_CHANGED,
         hasAuth: !!user,
-        user,
+        user: user && user.toJSON(),
     };
 }
 
