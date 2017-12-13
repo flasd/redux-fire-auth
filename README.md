@@ -84,5 +84,7 @@ export function mapStateToProps(state) {
 export default connect(mapStateToProps)(App);
 ```
 
+If you've liked this, consider giving it a :star:!
+
 ### Licence
 MIT all the way. Let's create awesome stuff! :rocket:
