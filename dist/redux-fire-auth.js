@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -117,8 +117,10 @@ var AUTH_STATE_CHANGED = exports.AUTH_STATE_CHANGED = '@@redux-fire-auth/auth-st
 function doneLoading(user) {
     return {
         type: DONE_LOADING,
-        hasAuth: !!user,
-        user: user && user.toJSON()
+        payload: {
+            hasAuth: !!user,
+            user: user && user.toJSON()
+        }
     };
 }
 
@@ -130,13 +132,65 @@ function doneLoading(user) {
 function authStateChanged(user) {
     return {
         type: AUTH_STATE_CHANGED,
-        hasAuth: !!user,
-        user: user && user.toJSON()
+        payload: {
+            hasAuth: !!user,
+            user: user && user.toJSON()
+        }
     };
 }
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.initialState = undefined;
+exports.default = authReducer;
+
+var _actions = __webpack_require__(0);
+
+var initialState = exports.initialState = {
+    isLoading: true,
+    hasAuth: false,
+    user: null
+};
+
+/**
+ * The reducer to process state changes.
+ * @param {Object} state the redux state
+ * @param {Object} action the redux action
+ * @returns {Object} The new state;
+ */
+function authReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case _actions.AUTH_STATE_CHANGED:
+            return Object.assign({}, state, {
+                hasAuth: action.payload.hasAuth,
+                user: action.payload.user
+            });
+
+        case _actions.DONE_LOADING:
+            return Object.assign({}, state, {
+                isLoading: false,
+                hasAuth: action.payload.hasAuth,
+                user: action.payload.user
+            });
+
+        default:
+            return state;
+    }
+}
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -161,7 +215,7 @@ function assert(condition, message) {
 }
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -170,21 +224,25 @@ function assert(condition, message) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.DONE_LOADING = exports.AUTH_STATE_CHANGED = undefined;
+exports.authReducer = exports.DONE_LOADING = exports.AUTH_STATE_CHANGED = undefined;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-exports.default = createAuthMiddleware;
+exports.default = createAuthEnhancer;
 
-var _assert = __webpack_require__(1);
+var _assert = __webpack_require__(2);
 
 var _assert2 = _interopRequireDefault(_assert);
 
 var _actions = __webpack_require__(0);
 
+var _reducer = __webpack_require__(1);
+
+var _reducer2 = _interopRequireDefault(_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function createAuthMiddleware(authInstance) {
+function createAuthEnhancer(authInstance) {
     var reducerKey = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'auth';
 
     (0, _assert2.default)(authInstance && authInstance.onAuthStateChanged, 'Expected firebase auth instance instead got ' + JSON.stringify(authInstance));
@@ -210,12 +268,13 @@ function createAuthMiddleware(authInstance) {
 
 exports.AUTH_STATE_CHANGED = _actions.AUTH_STATE_CHANGED;
 exports.DONE_LOADING = _actions.DONE_LOADING;
+exports.authReducer = _reducer2.default;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(2);
+module.exports = __webpack_require__(3);
 
 
 /***/ })
