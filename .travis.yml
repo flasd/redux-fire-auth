@@ -2,10 +2,9 @@ language: node_js
 node_js:
   - 6
   - 8
-  - 10
+  # - 10 Ignore nodeJs 10 until https://github.com/firebase/firebase-js-sdk/issues/883 is resolved.
 
 install:
-  - sudo apt-get install build-essential
   - npm install
 
 script:
