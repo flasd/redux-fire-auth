@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - 6
   - 8
-  - 9
+  # - 10 Ignore nodeJs 10 until https://github.com/firebase/firebase-js-sdk/issues/883 is resolved.
 
 install:
   - npm install
@@ -11,4 +11,4 @@ script:
   - npm run build
 
 after_success:
-  - npm run report
+  - npm run coverage

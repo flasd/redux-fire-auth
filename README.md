@@ -1,7 +1,7 @@
 # redux-fire-auth
 Helper to keep the Redux State in sync with the Firebase Auth State.
 
-[![Build Status](https://travis-ci.org/flasd/react-classlist-helper.svg?branch=master)](https://travis-ci.org/flasd/redux-fire-auth) [![Coverage Status](https://coveralls.io/repos/github/flasd/redux-fire-auth/badge.svg?branch=master)](https://coveralls.io/github/flasd/redux-fire-auth?branch=master) [![npm version](https://badge.fury.io/js/redux-fire-auth.svg)](https://www.npmjs.com/package/redux-fire-auth) [![npm](https://img.shields.io/badge/Licence-MIT-blue.svg)](https://github.com/flasd/redux-fire-auth/blob/master/LICENSE) [![code style](https://img.shields.io/badge/Code%20Style-Airbnb-orange.svg)](https://www.npmjs.com/package/eslint-config-airbnb)
+[![Build Status](https://travis-ci.org/flasd/react-classlist-helper.svg?branch=master)](https://travis-ci.org/flasd/redux-fire-auth) [![Coverage Status](https://coveralls.io/repos/github/flasd/redux-fire-auth/badge.svg?branch=master)](https://coveralls.io/github/flasd/redux-fire-auth?branch=master) [![npm version](https://badge.fury.io/js/redux-fire-auth.svg)](https://www.npmjs.com/package/redux-fire-auth)
 
 
 ### Why?
@@ -17,33 +17,48 @@ First, obviously,
 $ npm install redux-fire-auth firebase redux --save
 ```
 
-Then, you'll need 2 things:
+Then just initialize it:
 
 ```javascript
 import firebase from 'firebase';
-import { createStore, combineReducers } from 'redux';
-import { reduxFireAuthReducer, init } from 'redux-fire-auth';
+import { applyMiddleware, createStore, combineReducers } from 'redux';
+
+// This is us!
+import createAuthEnhancer, { authReducer } from 'redux-fire-auth';
 
 import * as yourReducers from './your-reducers.js';
 
-const store = createStore(
-	combineReducers({
-    	'fireAuth': reduxFireAuthReducer,
-        ...yourReducers,
-    }),
-);
+// ...
 
-const authInstance = firebase.auth();
+// Initialize your firebase app.
+const app = firebase.initializeApp({/* Firebase Configs */});
+const auth = app.auth();
 
-init(store, authInstance);
+// Combine your reducers with ours \o/
+const reducer = combineReducers({
+    auth: authReducer,
+    ...yourReducers,
+});
+
+// Build the middleware.
+const authEnhancer = createAuthEnhancer(auth);
+
+// Create your store.
+const store = createStore(reducer, applyMiddleware(authEnhancer));
+
+// Yup. That easy.
 ```
-The `init` function binds Firebase's `onAuthStateChanged` with action creators. Whenever there's an authStateChanged event, the redux state will sync automatically.
+This enhancer will bind to Firebase's `onAuthStateChanged` with action creators. Whenever there's an authStateChanged event, the redux state will sync automatically.
 
-**Note:** If you'd want to use something other than `fireAuth` to bind the reducer to, you need to pass the key you are using to `init(store, authInstance, key)` as the third argument.
+### API exports
+You can listen to actions inside your own reducers by importing the action types `import { AUTH_STATE_CHANGED, DONE_LOADING } from 'redux-fire-auth'`. Our actions are [FSA](https://github.com/redux-utilities/flux-standard-action) compliant.
+
+
+**Note:** If you'd want to use something other than `auth` to bind the reducer to, you need to pass the key you want to use to `createAuthEnhancer(authInstance, key)` as the second argument.
 
 ### Usage
 
-When you call `store.getState().fireAuth` you'll get an object with three properties:
+When you call `store.getState().auth` you'll get an object with three properties:
 ##### isLoading: bool
 True while the Firebase SDK is initializing, then always false.
 
@@ -77,11 +92,7 @@ export function App({ isLoading, hasAuth, user }) {
     );
 }
 
-export function mapStateToProps(state) {
-	return state.fireAuth;
-}
-
-export default connect(mapStateToProps)(App);
+export default connect(({ auth }) => auth)(App);
 ```
 
 If you've liked this, consider giving it a :star:!
