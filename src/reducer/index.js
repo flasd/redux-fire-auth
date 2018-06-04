@@ -16,15 +16,15 @@ export default function authReducer(state = initialState, action) {
     switch (action.type) {
         case AUTH_STATE_CHANGED:
             return Object.assign({}, state, {
-                hasAuth: action.hasAuth,
-                user: action.user,
+                hasAuth: action.payload.hasAuth,
+                user: action.payload.user,
             });
 
         case DONE_LOADING:
             return Object.assign({}, state, {
                 isLoading: false,
-                hasAuth: action.hasAuth,
-                user: action.user,
+                hasAuth: action.payload.hasAuth,
+                user: action.payload.user,
             });
 
         default:

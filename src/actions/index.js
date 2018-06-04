@@ -9,8 +9,10 @@ export const AUTH_STATE_CHANGED = '@@redux-fire-auth/auth-state-changed';
 export function doneLoading(user) {
     return {
         type: DONE_LOADING,
-        hasAuth: !!user,
-        user: user && user.toJSON(),
+        payload: {
+            hasAuth: !!user,
+            user: user && user.toJSON(),
+        },
     };
 }
 
@@ -22,7 +24,9 @@ export function doneLoading(user) {
 export function authStateChanged(user) {
     return {
         type: AUTH_STATE_CHANGED,
-        hasAuth: !!user,
-        user: user && user.toJSON(),
+        payload: {
+            hasAuth: !!user,
+            user: user && user.toJSON(),
+        },
     };
 }
