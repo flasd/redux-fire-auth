@@ -6,7 +6,7 @@ function getTag(value) {
 }
 
 function createMockAction(type, payload = {}) {
-    return Object.assign({}, { type }, payload);
+    return { type, payload };
 }
 
 describe('reducer', () => {

@@ -25,13 +25,15 @@ describe('actions', () => {
 
         const returnsWithAuth = authStateChanged({ toJSON: () => ({ dimension: 137 }) });
         expect(returnsWithAuth).toHaveProperty('type', AUTH_STATE_CHANGED);
-        expect(returnsWithAuth).toHaveProperty('hasAuth', true);
-        expect(returnsWithAuth).toHaveProperty('user', { dimension: 137 });
+        expect(returnsWithAuth).toHaveProperty('payload');
+        expect(returnsWithAuth.payload).toHaveProperty('hasAuth', true);
+        expect(returnsWithAuth.payload).toHaveProperty('user', { dimension: 137 });
 
         const returnsWithoutAuth = authStateChanged(null);
         expect(returnsWithoutAuth).toHaveProperty('type', AUTH_STATE_CHANGED);
-        expect(returnsWithoutAuth).toHaveProperty('hasAuth', false);
-        expect(returnsWithoutAuth).toHaveProperty('user', null);
+        expect(returnsWithoutAuth).toHaveProperty('payload');
+        expect(returnsWithoutAuth.payload).toHaveProperty('hasAuth', false);
+        expect(returnsWithoutAuth.payload).toHaveProperty('user', null);
     });
 
     test('doneLoading function', () => {
@@ -39,12 +41,14 @@ describe('actions', () => {
 
         const returnsWithAuth = doneLoading({ toJSON: () => ({ dimension: 137 }) });
         expect(returnsWithAuth).toHaveProperty('type', DONE_LOADING);
-        expect(returnsWithAuth).toHaveProperty('hasAuth', true);
-        expect(returnsWithAuth).toHaveProperty('user', { dimension: 137 });
+        expect(returnsWithAuth).toHaveProperty('payload');
+        expect(returnsWithAuth.payload).toHaveProperty('hasAuth', true);
+        expect(returnsWithAuth.payload).toHaveProperty('user', { dimension: 137 });
 
         const returnsWithoutAuth = doneLoading(null);
         expect(returnsWithoutAuth).toHaveProperty('type', DONE_LOADING);
-        expect(returnsWithoutAuth).toHaveProperty('hasAuth', false);
-        expect(returnsWithoutAuth).toHaveProperty('user', null);
+        expect(returnsWithoutAuth).toHaveProperty('payload');
+        expect(returnsWithoutAuth.payload).toHaveProperty('hasAuth', false);
+        expect(returnsWithoutAuth.payload).toHaveProperty('user', null);
     });
 });
