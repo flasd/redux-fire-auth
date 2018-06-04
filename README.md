@@ -41,17 +41,17 @@ const reducer = combineReducers({
 });
 
 // Build the middleware.
-const authMiddleware = createAuthEnhancer(auth);
+const authEnhancer = createAuthEnhancer(auth);
 
 // Create your store.
-const store = createStore(reducer, applyMiddleware(authMiddleware));
+const store = createStore(reducer, applyMiddleware(authEnhancer));
 
 // Yup. That easy.
 ```
 This enhancer will bind to Firebase's `onAuthStateChanged` with action creators. Whenever there's an authStateChanged event, the redux state will sync automatically.
 
 ### API exports
-You can listen to actions inside your own reducers by importing the action types `{ AUTH_STATE_CHANGED, DONE_LOADING }`. Actions are [FSA](https://github.com/redux-utilities/flux-standard-action) compliant.
+You can listen to actions inside your own reducers by importing the action types `import { AUTH_STATE_CHANGED, DONE_LOADING } from 'redux-fire-auth'`. Our actions are [FSA](https://github.com/redux-utilities/flux-standard-action) compliant.
 
 
 **Note:** If you'd want to use something other than `auth` to bind the reducer to, you need to pass the key you want to use to `createAuthEnhancer(authInstance, key)` as the second argument.
