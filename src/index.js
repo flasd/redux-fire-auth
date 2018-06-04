@@ -5,8 +5,9 @@ import {
     authStateChanged,
     doneLoading,
 } from './actions';
+import authReducer from './reducer';
 
-export default function createAuthMiddleware(authInstance, reducerKey = 'auth') {
+export default function createAuthEnhancer(authInstance, reducerKey = 'auth') {
     assert(
         authInstance && authInstance.onAuthStateChanged,
         `Expected firebase auth instance instead got ${JSON.stringify(authInstance)}`,
@@ -32,3 +33,4 @@ export default function createAuthMiddleware(authInstance, reducerKey = 'auth') 
 
 export { AUTH_STATE_CHANGED };
 export { DONE_LOADING };
+export { authReducer };
