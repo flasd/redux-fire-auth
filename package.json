@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "Helper to keep the Redux State in sync with the Firebase Auth State.",
   "main": "dist/redux-fire-auth.js",
+  "module": "src/index.js",
   "scripts": {
     "lint": "eslint src/**",
     "test": "cross-env NODE_ENV=test jest",
